@@ -61,7 +61,6 @@ class NumpyDataset(Dataset):
 
 
 def load_protein_coding_genes(pc_url, pc_path):
-    """Download protein coding genes list if needed, return set of base gene IDs."""
     if not os.path.exists(pc_path):
         response = requests.get(pc_url)
         with open(pc_path, "wb") as f:
@@ -80,7 +79,6 @@ def load_protein_coding_genes(pc_url, pc_path):
 
 
 def load_phenotype(phenotype_path):
-    """Load phenotype data. Returns (labels_full, primary_tumor_idx)."""
     labels_full = pd.read_csv(phenotype_path, sep="\t", index_col=0)
     print(f"Total samples in phenotype file: {len(labels_full)}")
 
@@ -92,9 +90,6 @@ def load_phenotype(phenotype_path):
 
 
 def load_expression_data(expr_path, pc_gene_ids, primary_tumor_idx, chunk_size=5000):
-    """Load expression matrix in chunks, filter to protein coding genes and
-    primary tumor samples. Applies 2^x - 1 transformation.
-    Returns expr DataFrame (samples x genes)."""
     expr_chunks = []
 
     for chunk in pd.read_csv(expr_path, sep="\t", index_col=0, chunksize=chunk_size):
@@ -130,8 +125,6 @@ def load_expression_data(expr_path, pc_gene_ids, primary_tumor_idx, chunk_size=5
 
 
 def align_samples(expr_full, labels_full, primary_tumor_idx):
-    """Align expression and label DataFrames to shared primary tumor samples.
-    Returns (expr, labels)."""
     shared = expr_full.index.intersection(primary_tumor_idx)
     expr = expr_full.loc[shared]
     labels = labels_full.loc[shared]
@@ -144,7 +137,6 @@ def align_samples(expr_full, labels_full, primary_tumor_idx):
 
 
 def filter_to_tulip_types(expr, labels):
-    """Filter to TULIP 32 tumor types. Returns (expr, y_raw Series, labels)."""
     y_raw = labels["_primary_disease"].astype(str).str.strip().str.lower()
 
     mask = y_raw.isin(TULIP_32_TUMOR_TYPES)
@@ -158,8 +150,6 @@ def filter_to_tulip_types(expr, labels):
 
 
 def normalize_and_pad(expr, pad_target=19800):
-    """TPM normalize, log10 transform, clamp negatives, and pad features.
-    Returns numpy array X."""
     row_sums = expr.sum(axis=1)
     expr = expr.div(row_sums, axis=0) * 1_000_000
 
@@ -189,7 +179,6 @@ def normalize_and_pad(expr, pad_target=19800):
 
 
 def encode_labels(y_raw):
-    """Encode tumor type labels. Returns (y array, LabelEncoder, num_classes)."""
     le = LabelEncoder()
     y = le.fit_transform(y_raw)
     num_classes = len(le.classes_)
@@ -199,8 +188,6 @@ def encode_labels(y_raw):
 
 
 def split_data(X, y, test_size=0.20, val_ratio=0.50, random_state=42):
-    """Stratified train/val/test split.
-    Returns (X_train, X_val, X_test, y_train, y_val, y_test)."""
     indices = np.arange(len(y))
 
     idx_train, idx_temp = train_test_split(
@@ -223,7 +210,6 @@ def split_data(X, y, test_size=0.20, val_ratio=0.50, random_state=42):
 
 def create_dataloaders(X_train, y_train, X_val, y_val, X_test, y_test,
                        batch_size=128, num_workers=2):
-    """Create PyTorch DataLoaders. Returns (train_loader, val_loader, test_loader)."""
     train_loader = DataLoader(
         NumpyDataset(X_train, y_train),
         batch_size=batch_size,
