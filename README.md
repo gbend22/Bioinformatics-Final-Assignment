@@ -2,7 +2,7 @@
 
 ## აბსტრაქტი
 
-სიმსივნის ტიპის ზუსტი იდენტიფიკაცია RNA-seq გენის ექსპრესიის მონაცემებზე დაყრდნობით კრიტიკულ როლს ასრულებს precision oncology-ში. წინამდებარე ნაშრომში ჩვენ ვიკვლევთ Deep Learning-ზე დაფუძნებულ მიდგომებს პირველადი სიმსივნის ტიპის კლასიფიკაციისთვის, TULIP-ის (Tumor Type Prediction Tool Using Convolutional Neural Networks) კვლევის საფუძველზე, რომელმაც CNN არქიტექტურა გამოიყენა ამ ამოცანის გადასაწყვეტად. ჩვენი მიზანი იყო TULIP-ის შედეგების რეპლიკაცია ალტერნატიული არქიტექტურებით — კერძოდ, **LSTM** (Long Short-Term Memory) და **Transformer** მოდელებით. ორივე მოდელი გავწვრთენით TCGA (The Cancer Genome Atlas) RNA-seq მონაცემთა ბაზიდან მიღებულ 9,185 Primary Tumor ნიმუშზე, 32 სხვადასხვა სიმსივნის ტიპის კლასიფიკაციისთვის. Preprocessing მოიცავდა Protein-Coding გენების ფილტრაციას, FPKM-დან TPM-ში კონვერტაციას, Log10 ტრანსფორმაციას და Library Size ნორმალიზაციას. Transformer მოდელმა მიაღწია **95.76%** სიზუსტეს Test Set-ზე, ხოლო LSTM-მა — **93.25%**. შედეგები ადასტურებს, რომ Sequence-based Deep Learning არქიტექტურები ეფექტიანად ახერხებენ გენის ექსპრესიის პროფილებიდან სიმსივნის ტიპის ამოცნობას და წარმოადგენენ CNN-ის ღირსეულ ალტერნატივას ამ ამოცანისთვის.
+სიმსივნის ტიპის ზუსტი იდენტიფიკაცია RNA-seq გენის ექსპრესიის მონაცემებზე დაყრდნობით კრიტიკულ როლს ასრულებს precision oncology-ში. წინამდებარე ნაშრომში ჩვენ ვიკვლევთ Deep Learning-ზე დაფუძნებულ მიდგომებს პირველადი სიმსივნის ტიპის კლასიფიკაციისთვის, TULIP-ის (Tumor Type Prediction Tool Using Convolutional Neural Networks) კვლევის საფუძველზე, რომელმაც CNN არქიტექტურა გამოიყენა ამ ამოცანის გადასაწყვეტად. ჩვენი მიზანი იყო TULIP-ის შედეგების რეპლიკაცია ალტერნატიული არქიტექტურებით - კერძოდ, **LSTM** (Long Short-Term Memory) და **Transformer** მოდელებით. ორივე მოდელი გავწვრთენით TCGA (The Cancer Genome Atlas) RNA-seq მონაცემთა ბაზიდან მიღებულ 9,185 Primary Tumor ნიმუშზე, 32 სხვადასხვა სიმსივნის ტიპის კლასიფიკაციისთვის. Preprocessing მოიცავდა Protein-Coding გენების ფილტრაციას, FPKM-დან TPM-ში კონვერტაციას, Log10 ტრანსფორმაციას და Library Size ნორმალიზაციას. Transformer მოდელმა მიაღწია **95.76%** სიზუსტეს Test Set-ზე, ხოლო LSTM-მა - **93.25%**. შედეგები ადასტურებს, რომ Sequence-based Deep Learning არქიტექტურები ეფექტიანად ახერხებენ გენის ექსპრესიის პროფილებიდან სიმსივნის ტიპის ამოცნობას და წარმოადგენენ CNN-ის ღირსეულ ალტერნატივას ამ ამოცანისთვის.
 
 ---
 
@@ -29,14 +29,14 @@ Both models are trained on TCGA RNA-seq data to classify **32 cancer types**.
 
 The preprocessing pipeline (`preprocessing/preprocess.py`) applies the following steps:
 
-1. **Gene filtering** — keep only protein-coding genes (~19,740 genes)
-2. **Sample filtering** — keep only Primary Tumor samples
-3. **Cancer type filtering** — retain only the 32 TULIP-defined cancer types
-4. **FPKM → TPM conversion** — `(2^FPKM) - 1`, negatives clipped to 0
-5. **Library size normalization** — scale each sample to 1,000,000 (TPM)
-6. **Log10 transformation** — `log10(TPM)` with floor at 1e-6
-7. **Padding** — pad to 19,800 genes for uniform input size
-8. **Label encoding** — `LabelEncoder` for the 32 cancer type strings
+1. **Gene filtering** - keep only protein-coding genes (~19,740 genes)
+2. **Sample filtering** - keep only Primary Tumor samples
+3. **Cancer type filtering** - retain only the 32 TULIP-defined cancer types
+4. **FPKM → TPM conversion** - `(2^FPKM) - 1`, negatives clipped to 0
+5. **Library size normalization** - scale each sample to 1,000,000 (TPM)
+6. **Log10 transformation** - `log10(TPM)` with floor at 1e-6
+7. **Padding** - pad to 19,800 genes for uniform input size
+8. **Label encoding** - `LabelEncoder` for the 32 cancer type strings
 
 ## Models
 
@@ -102,7 +102,7 @@ pip install torch scikit-learn pandas numpy matplotlib seaborn tqdm
 
 ## References
 
-- Lyu, B., & Haque, A. (2023). *TULIP — An RNA-seq-based Primary Tumor Type Prediction Tool Using Convolutional Neural Networks.* Computer Methods and Programs in Biomedicine. The paper link: [link](https://journals.sagepub.com/doi/epub/10.1177/11769351221139491)
-- Expression Data — [link](https://xenabrowser.net/datapages/?dataset=tcga_RSEM_gene_fpkm&host=https%3A%2F%2Ftoil.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443)
+- Lyu, B., & Haque, A. (2023). *TULIP - An RNA-seq-based Primary Tumor Type Prediction Tool Using Convolutional Neural Networks.* Computer Methods and Programs in Biomedicine. The paper link: [link](https://journals.sagepub.com/doi/epub/10.1177/11769351221139491)
+- Expression Data - [link](https://xenabrowser.net/datapages/?dataset=tcga_RSEM_gene_fpkm&host=https%3A%2F%2Ftoil.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443)
 - Phenotype Data - [link](https://xenabrowser.net/datapages/?dataset=TCGA_phenotype_denseDataOnlyDownload.tsv&host=https%3A%2F%2Fpancanatlas.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443)
 - Protein coding gene data - [link](https://raw.githubusercontent.com/CBIIT/TULIP/main/gene_lists/protein_coding_genes.txt)
