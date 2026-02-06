@@ -1,4 +1,4 @@
-# Bioinformatics Final Assignment
+# Bioinformatics Final Assignment - Giorgi Kutchava, Giorgi Bendianishvili
 
 ## აბსტრაქტი
 
