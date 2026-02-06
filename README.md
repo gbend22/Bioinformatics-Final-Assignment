@@ -5,6 +5,8 @@
 სიმსივნის ტიპის ზუსტი იდენტიფიკაცია RNA-seq გენის ექსპრესიის მონაცემებზე დაყრდნობით კრიტიკულ როლს ასრულებს precision oncology-ში. წინამდებარე ნაშრომში ჩვენ ვიკვლევთ Deep Learning-ზე დაფუძნებულ მიდგომებს პირველადი სიმსივნის ტიპის კლასიფიკაციისთვის, TULIP-ის (Tumor Type Prediction Tool Using Convolutional Neural Networks) კვლევის საფუძველზე, რომელმაც CNN არქიტექტურა გამოიყენა ამ ამოცანის გადასაწყვეტად. ჩვენი მიზანი იყო TULIP-ის შედეგების რეპლიკაცია ალტერნატიული არქიტექტურებით - კერძოდ, **LSTM** (Long Short-Term Memory) და **Transformer** მოდელებით. ორივე მოდელი გავწვრთენით TCGA (The Cancer Genome Atlas) RNA-seq მონაცემთა ბაზიდან მიღებულ 9,185 Primary Tumor ნიმუშზე, 32 სხვადასხვა სიმსივნის ტიპის კლასიფიკაციისთვის. Preprocessing მოიცავდა Protein-Coding გენების ფილტრაციას, FPKM-დან TPM-ში კონვერტაციას, Log10 ტრანსფორმაციას და Library Size ნორმალიზაციას. Transformer მოდელმა მიაღწია **95.76%** სიზუსტეს Test Set-ზე, ხოლო LSTM-მა - **93.25%**. შედეგები ადასტურებს, რომ Sequence-based Deep Learning არქიტექტურები ეფექტიანად ახერხებენ გენის ექსპრესიის პროფილებიდან სიმსივნის ტიპის ამოცნობას და წარმოადგენენ CNN-ის ღირსეულ ალტერნატივას ამ ამოცანისთვის.
 
 ---
+## Presetation link
+[presentation](https://www.canva.com/design/DAHAfKOTjbg/N32gPG7AiXXBRPPqdzv7rQ/edit?utm_content=DAHAfKOTjbg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Project Overview
 
