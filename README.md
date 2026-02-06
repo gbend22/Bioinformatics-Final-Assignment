@@ -8,7 +8,7 @@
 
 ## Project Overview
 
-This project replicates and extends the work of the [TULIP paper](https://doi.org/10.1016/j.cmpb.2023.107720), which used a CNN to classify primary tumor types from RNA-seq gene expression data. Instead of CNNs, we implement and compare two alternative deep learning architectures:
+This project replicates and extends the work of the [TULIP paper](https://journals.sagepub.com/doi/epub/10.1177/11769351221139491), which used a CNN to classify primary tumor types from RNA-seq gene expression data. Instead of CNNs, we implement and compare two alternative deep learning architectures:
 
 - **LSTM** (Bidirectional, 2-layer)
 - **Transformer** (3-layer encoder with multi-head self-attention)
