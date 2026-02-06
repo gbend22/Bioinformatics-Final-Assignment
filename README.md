@@ -25,7 +25,7 @@ Both models are trained on TCGA RNA-seq data to classify **32 cancer types**.
 - **Samples:** 9,185 primary tumor samples
 - **Features:** 19,740 protein-coding genes (padded to 19,800)
 - **Classes:** 32 cancer types
-- **Split:** 80% train / 10% validation / 10% test (stratified)
+- **Split:** 80% train / 10% validation / 10% test (according to the original paper)
 
 ## Preprocessing
 
